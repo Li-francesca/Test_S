@@ -3,10 +3,7 @@ package com.management.dao;
 import java.util.List;
 
 import com.management.pojo.Student;
-/*
- * dao层
- * @author by LiF
- * */
+
 public interface StudentDao {
 	
 	// 1. 取得所有学生信息
