@@ -13,8 +13,15 @@ import com.management.service.StudentService;
 import com.management.service.impl.StudentServiceImpl;
 import com.management.utils.PageUtil;
 
+/**
+ * 定义StudentServlet类继承于HttpServlet类
+ *
+ * @author suzy
+ */
+
 public class StudentServlet extends HttpServlet {
 
+	//序列化时保持版本兼容
 	private static final long serialVersionUID = -8393706541110910L;
 	
 	private StudentService studentService;
@@ -23,25 +30,25 @@ public class StudentServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
-		String uri = request.getRequestURI();
+		String uri = request.getRequestURI();//返回字符串，当次请求的url的path内容
 		//根据uri调用不同方法
 		if(uri.endsWith("/list")) {
-			
+			//如果后缀是/list，调用list方法
 			list(request, response);
 		} else if(uri.endsWith("/updateForm")) {
-			
+			//如果后缀是/updateForm，调用updateForm方法
 			updateForm(request, response);
 		} else if(uri.endsWith("/update")) {
-			
+			//如果后缀是/update，调用update方法
 			update(request, response);
 		} else if(uri.endsWith("/delete")) {
-			
+			//如果后缀是/delete，调用delete方法
 			delete(request, response);
 		} else if(uri.endsWith("/insert")) {
-			
+			//如果后缀是/insert，调用insert方法
 			insert(request, response);
 		} else if(uri.endsWith("/getStudent")) {
-			
+			//如果后缀是/getStudent，调用getStudent方法
 			getStudent(request, response);
 		}
 	}
@@ -60,6 +67,7 @@ public class StudentServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		studentService = new StudentServiceImpl();
+
 		List<Student> list = studentService.getAllStudent();	
 		int page = 1;
 		String pageParam = request.getParameter("page");	
@@ -77,8 +85,9 @@ public class StudentServlet extends HttpServlet {
 	 */
 	public boolean getStudent(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		//创建对象
 		studentService = new StudentServiceImpl();
+
 		String idParam = request.getParameter("id").replaceAll(" ", "").replaceAll("//+", "");
 		long id = 1;
 		try {
@@ -114,6 +123,7 @@ public class StudentServlet extends HttpServlet {
 		
 		studentService = new StudentServiceImpl();
 		request.setCharacterEncoding("utf-8");
+		//学号
 		String idParam = request.getParameter("id").replaceAll(" ", "").replaceAll("//+", "");
 		long id = 0;
 		boolean error = false;
@@ -123,17 +133,17 @@ public class StudentServlet extends HttpServlet {
 			request.setAttribute("idmsg", "学号输入格式有误！");
 			error = true;
 		}
+		//姓名
 		String name = request.getParameter("name").replaceAll(" ", "").replaceAll("//+", "");
 		System.out.println(name);
+		//性别		
 		String sex = request.getParameter("sex");
 		System.out.println(sex);
+		//班级
 		String clazz = request.getParameter("clazz").replaceAll(" ", "").replaceAll("//+", "");
 		System.out.println(clazz);
+		//电话号码
 		String phoneParam = request.getParameter("phone").replaceAll(" ", "").replaceAll("//+", "");
-		System.out.println(phoneParam);
-		String date = request.getParameter("date").replaceAll(" ", "").replaceAll("//+", "");
-		System.out.println(date);
-
 		long phone = 0;
 		try {
 			phone = Long.parseLong(phoneParam);
@@ -146,7 +156,7 @@ public class StudentServlet extends HttpServlet {
 				.forward(request, response);
 			return false;
 		}
-		Student student = new Student(id, name, sex, clazz, phone, date);
+		Student student = new Student(id, name, sex, clazz, phone);
 		System.out.println(student);
 		studentService.insertStudent(student);
 		response.sendRedirect("list");
@@ -175,15 +185,17 @@ public class StudentServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		boolean error = false;
 		long id = Long.parseLong(request.getParameter("id"));
+		//姓名
 		String name = request.getParameter("name").replaceAll(" ", "").replaceAll("//+", "");
 		System.out.println(name);
+		//性别
 		String sex = request.getParameter("sex");
 		System.out.println(sex);
+		//班级
 		String clazz = request.getParameter("clazz").replaceAll(" ", "").replaceAll("//+", "");
 		System.out.println(clazz);
+		//电话号码
 		String phoneParam = request.getParameter("phone").replaceAll(" ", "").replaceAll("//+", "");
-		String date = request.getParameter("date").replaceAll(" ", "").replaceAll("//+", "");
-		System.out.println(date);
 		long phone = 0;
 		try {
 			phone = Long.parseLong(phoneParam);
@@ -196,7 +208,7 @@ public class StudentServlet extends HttpServlet {
 				.forward(request, response);
 			return false;
 		}
-		Student student = new Student(id, name, sex, clazz, phone, date);
+		Student student = new Student(id, name, sex, clazz, phone);
 		System.out.println(student);
 		studentService.updateStudent(id, student);
 		response.sendRedirect("list");
