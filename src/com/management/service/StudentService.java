@@ -5,7 +5,8 @@ import java.util.List;
 import com.management.pojo.Student;
 
 public interface StudentService {
-	
+
+
 	// 1. 取得所有学生信息
 	List<Student> getAllStudent();
 	// 2. 根据学号查询学生信息
