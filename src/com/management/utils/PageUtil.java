@@ -8,18 +8,18 @@ import com.management.pojo.Student;
  * 页面信息工具类
  */
 public class PageUtil {
-	
-	public int page; //当前页数
-	public int max; //每页显示记录数
-	public int total; //总页数
-	public int begin; //每页开始元素在list中索引
-	public int end; //每页结束元素在list中索引
-	public int size; //总记录数
+
+	public int page;    //当前页数
+	public int max;     //每页显示记录数
+	public int total;   //总页数
+	public int begin;   //每页开始元素在list中索引
+	public int end;     //每页结束元素在list中索引
+	public int size;    //总记录数
 	public int[] navigatepageNums; //有效页码数组
 	public List<Student> list; //学生列表
-	
+
 	public PageUtil(List<Student> list, int page, int max) {
-		this.list = list;		
+		this.list = list;
 		this.max = max;
 		this.total = list.size() % max == 0?
 				list.size() / max : list.size() / max + 1;
@@ -63,6 +63,10 @@ public class PageUtil {
 		}
 		return false;
 	}
+
+	/**
+	*get and set 方法
+	*/
 
 	public int getPage() {
 		return page;
@@ -127,5 +131,5 @@ public class PageUtil {
 		this.size = size;
 	}
 
-	
+
 }
